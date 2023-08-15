@@ -1,0 +1,13 @@
+<form class="input-component" action="">
+    <textarea class="input-component__textarea-input" ngModel #textarea cols="30" rows="20" (scroll)="show($event)"></textarea>
+    <button class="input-component__record-stop-btn" type="button" (change)="Record_Stop()">
+        <span *ngIf="isRecording; else recordBtn">
+            ⬛
+        </span>
+        <ng-template #recordBtn>
+        <i class="input-component__record-stop-btn__icon material-symbols-outlined">
+            mic
+        </i>
+        </ng-template>
+    </button>
+</form>

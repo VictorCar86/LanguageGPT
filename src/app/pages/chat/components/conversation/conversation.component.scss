@@ -1,0 +1,45 @@
+.conversation-component {
+    ul {
+        padding: 0px;
+    }
+
+    &__content {
+
+        &--bot-color {
+            background-color: rgb(65, 65, 65);
+        }
+        &--user-color {
+            background-color: rgb(97, 97, 97);
+        }
+
+        &__container {
+            display: flex;
+            justify-content: left;
+            gap: 4.5%;
+            max-width: 680px;
+            min-height: 70px;
+            padding: 0px 5%;
+            margin: 0px auto;
+            line-height: 30px;
+
+            &__speaker-icon {
+                min-width: 32px;
+                min-height: 32px;
+                width: min-content;
+                height: min-content;
+                margin-top: 14px;
+                padding: 4px;
+                border-radius: 9999px;
+                font-size: 32px;
+                user-select: none;
+                box-shadow: 0px 0px 2px 2px white;
+            }
+
+            &__text {
+                width: 85%;
+                align-self: center;
+                word-wrap: break-word;
+            }
+        }
+    }
+}

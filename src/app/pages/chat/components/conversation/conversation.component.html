@@ -1,0 +1,25 @@
+<section class="conversation-component">
+    <ul>
+        <ng-container *ngFor="let current of conversation">
+            <li
+                class="conversation-component__content"
+                [ngClass]="{
+                    'conversation-component__content--bot-color' : current.role === 'bot',
+                    'conversation-component__content--user-color': current.role === 'user'
+                }"
+            >
+                <article class="conversation-component__content__container">
+                    <i class="conversation-component__content__container__speaker-icon material-symbols-outlined" *ngIf="current.role === 'bot'">
+                        robot_2
+                    </i>
+                    <i class="conversation-component__content__container__speaker-icon material-symbols-outlined" *ngIf="current.role === 'user'">
+                        person
+                    </i>
+                    <p class="conversation-component__content__container__text">
+                        {{current.content}}
+                    </p>
+                </article>
+            </li>
+        </ng-container>
+    </ul>
+</section>
