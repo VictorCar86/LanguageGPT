@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ChatApiService } from 'src/app/services/chat-api.service';
 
 @Component({
   selector: 'app-input',
@@ -13,7 +14,10 @@ export class InputComponent implements OnInit {
 
   isRecording = false;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private chatApiService: ChatApiService,
+  ) {}
 
   ngOnInit() {
     this.isAvaliableBrowser();
@@ -54,6 +58,11 @@ export class InputComponent implements OnInit {
     }
   }
 
+  sendToChat() {
+    this.chatApiService.sendInput(this.textArea.nativeElement.value);
+    this.textArea.nativeElement.value = "";
+  }
+
   Record_Stop() {
     if (this.isUnavaliableBrowser) {
       this.alertCompatibility();
@@ -68,13 +77,10 @@ export class InputComponent implements OnInit {
     this.isRecording = !this.isRecording;
   }
 
-  show(event: Event) {
-    console.log(event);
-    const lines = Number(this.textArea.nativeElement.value.match(/.{1,50}/g)?.length);
-    console.log("🚀 ~ file: input.component.ts:74 ~ InputComponent ~ show ~ lines:", lines)
-    if (lines >= 2) {
-      this.textArea.nativeElement.style.height = (this.textArea.nativeElement.scrollHeight - ((lines - 1) * 30)) + 'px';
-    }
+  changeHeightTextarea() {
+    const textareaElem = this.textArea.nativeElement;
+    textareaElem.style.height = "5px";
+    textareaElem.style.height = (textareaElem.scrollHeight - 27) + "px";
   }
 
 }

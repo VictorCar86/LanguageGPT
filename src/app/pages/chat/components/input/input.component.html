@@ -1,13 +1,25 @@
 <form class="input-component" action="">
-    <textarea class="input-component__textarea-input" ngModel #textarea cols="30" rows="20" (scroll)="show($event)"></textarea>
-    <button class="input-component__record-stop-btn" type="button" (change)="Record_Stop()">
-        <span *ngIf="isRecording; else recordBtn">
-            ⬛
-        </span>
-        <ng-template #recordBtn>
+    <textarea class="input-component__textarea-input" ngModel #textarea cols="30" rows="20" (input)="changeHeightTextarea()"></textarea>
+    <button
+        class="input-component__record-stop-btn"
+        type="button"
+        *ngIf="textarea.textLength > 0; else recordIcons"
+        (click)="sendToChat()"
+    >
         <i class="input-component__record-stop-btn__icon material-symbols-outlined">
-            mic
+            send
         </i>
-        </ng-template>
     </button>
+    <ng-template #recordIcons>
+        <button class="input-component__record-stop-btn" type="button" (click)="Record_Stop()">
+            <span *ngIf="isRecording; else toRecord">
+                ⬛
+            </span>
+            <ng-template #toRecord>
+            <i class="input-component__record-stop-btn__icon material-symbols-outlined">
+                mic
+            </i>
+            </ng-template>
+        </button>
+    </ng-template>
 </form>

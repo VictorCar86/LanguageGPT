@@ -17,4 +17,9 @@ export class ChatApiService {
   ];
 
   constructor() { }
+
+  sendInput(inputValue: string) {
+    this.chat.push({ role: 'bot', content: '_TEST_' });
+    this.chat.push({ role: 'user', content: inputValue });
+  }
 }
