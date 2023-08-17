@@ -1,6 +1,10 @@
 .conversation-component {
+    overflow: auto;
+    padding-bottom: 98px;
+
     ul {
         padding: 0px;
+        margin: 0px;
     }
 
     &__content {
@@ -20,7 +24,7 @@
             min-height: 70px;
             padding: 0px 5%;
             margin: 0px auto;
-            line-height: 30px;
+            line-height: 24px;
 
             &__speaker-icon {
                 min-width: 32px;
@@ -39,6 +43,7 @@
                 width: 85%;
                 align-self: center;
                 word-wrap: break-word;
+                white-space: pre-line;
             }
         }
     }

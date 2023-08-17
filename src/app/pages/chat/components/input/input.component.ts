@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ChatApiService } from 'src/app/services/chat-api.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class InputComponent implements OnInit {
   isRecording = false;
 
   constructor(
-    private renderer: Renderer2,
+    private zone: NgZone,
     private chatApiService: ChatApiService,
   ) {}
 
@@ -31,9 +31,8 @@ export class InputComponent implements OnInit {
   private isAvaliableBrowser() {
     const currentBrowser = window.navigator.userAgent;
     const disabledBrowsers = ['OPR', 'Firefox'];
-    this.isUnavaliableBrowser = disabledBrowsers.some(b => currentBrowser.includes(b)) || (window as any).brave;
+    this.isUnavaliableBrowser = disabledBrowsers.some(b => currentBrowser.includes(b)) || (navigator as any).brave;
     if (this.isUnavaliableBrowser){
-      console.log("🚀 ~ file: chat.component.ts:32 ~ ChatComponent ~ isAvaliableBrowser ~ this.isUnavaliableBrowser:", this.isUnavaliableBrowser)
       this.alertCompatibility();
     }
   }
@@ -45,22 +44,29 @@ export class InputComponent implements OnInit {
     this.recognition.interimResults = false;
 
     this.recognition.onresult = (event) => {
-      console.log("🚀 ~ file: app.component.ts:20 ~ AppComponent ~ ngOnInit ~ event:", event);
       const result = Array.from(event.results).at(-1);
-      if (result){
-        this.renderer.setProperty(this.textArea.nativeElement, 'value', result[0].transcript);
+      if (result) {
+        this.chatApiService.sendInput(result[0].transcript);
+        this.zone.run(() => this.closeRecording());
       }
     };
 
     this.recognition.onerror = (e) => {
-      console.log(e);
-      this.isRecording = false;
+      console.error(e);
+      this.zone.run(() => this.closeRecording());
     }
   }
 
-  sendToChat() {
+  private closeRecording() {
+    this.isRecording = false;
+    this.recognition.stop();
+  }
+
+  sendTextareaValue(event?: Event) {
+    event?.preventDefault();
     this.chatApiService.sendInput(this.textArea.nativeElement.value);
     this.textArea.nativeElement.value = "";
+    this.changeHeightTextarea();
   }
 
   Record_Stop() {
@@ -68,12 +74,10 @@ export class InputComponent implements OnInit {
       this.alertCompatibility();
       return;
     }
-    if (this.isRecording) {
-      this.recognition.abort();
-    }
-    else {
+    if (!this.isRecording)
       this.recognition.start();
-    }
+    else
+      this.recognition.stop();
     this.isRecording = !this.isRecording;
   }
 
