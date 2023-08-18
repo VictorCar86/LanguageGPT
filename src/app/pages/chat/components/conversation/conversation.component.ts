@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChatApiService } from 'src/app/services/chat-api.service';
 
 @Component({
@@ -6,15 +6,11 @@ import { ChatApiService } from 'src/app/services/chat-api.service';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
-export class ConversationComponent implements AfterViewChecked {
+export class ConversationComponent {
 
   conversation = this.chatApiService.chat;
 
   constructor(
     private chatApiService: ChatApiService,
   ) {}
-
-  ngAfterViewChecked() {
-    console.log(this.conversation);
-  }
 }

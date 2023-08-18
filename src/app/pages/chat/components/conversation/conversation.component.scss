@@ -1,3 +1,5 @@
+@use '../../../../../assets/styles/variables' as *;
+
 .conversation-component {
     overflow: auto;
     padding-bottom: 98px;
@@ -10,10 +12,10 @@
     &__content {
 
         &--bot-color {
-            background-color: rgb(65, 65, 65);
+            background-color: $dark_gray;
         }
         &--user-color {
-            background-color: rgb(97, 97, 97);
+            background-color: $light_gray;
         }
 
         &__container {

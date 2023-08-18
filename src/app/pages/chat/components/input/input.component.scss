@@ -1,3 +1,5 @@
+@use '../../../../../assets/styles/variables' as *;
+
 .input-component {
     position: fixed;
     bottom: 0px;
@@ -10,7 +12,31 @@
     max-height: 50px;
     padding: 25px 0px;
     margin: 0px auto;
-    background-color: #323232;
+    background-color: transparent!important;
+    background-image: linear-gradient(180deg,rgb(0 0 0 / 0%),#303030 40%);
+
+    &__textarea-input {
+        display: block;
+        width: 70%;
+        max-width: 470px;
+        height: 20px;
+        max-height: 80px;
+        color: white;
+        font-size: 16px;
+        font-family: inherit;
+        padding: 14px 10px;
+        border-radius: 14px;
+        background-color: $light_gray;
+        resize: none;
+
+        /* Firefox */
+        scrollbar-width: 0px;
+
+        /* Chrome, Edge, and Safari */
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+    }
 
     &__record-stop-btn {
         width: 50px;
@@ -26,31 +52,8 @@
             font-size: 32px;
             color: inherit;
             &--record {
-                color: #bb0000;
+                color: $heavy_red;
             }
-        }
-    }
-
-    &__textarea-input {
-        display: block;
-        width: 70%;
-        max-width: 470px;
-        height: 20px;
-        max-height: 80px;
-        color: white;
-        font-size: 16px;
-        font-family: inherit;
-        padding: 14px 10px;
-        border-radius: 14px;
-        background-color: dimgray;
-        resize: none;
-
-        /* Firefox */
-        scrollbar-width: 0px;
-
-        /* Chrome, Edge, and Safari */
-        &::-webkit-scrollbar {
-            width: 0px;
         }
     }
 }

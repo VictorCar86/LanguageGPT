@@ -11,6 +11,7 @@ export class InputComponent implements OnInit {
   @ViewChild('textarea') textArea!: ElementRef<HTMLTextAreaElement>;
   private recognition!: SpeechRecognition;
   private isUnavaliableBrowser = true;
+  private soundsUrl = '../../../../../assets/sounds';
 
   isRecording = false;
 
@@ -21,7 +22,9 @@ export class InputComponent implements OnInit {
 
   ngOnInit() {
     this.isAvaliableBrowser();
-    this.initialConfigSpeechRecognition();
+    if (!this.isUnavaliableBrowser){
+      this.initialConfigSpeechRecognition();
+    }
   }
 
   private alertCompatibility() {
@@ -31,10 +34,8 @@ export class InputComponent implements OnInit {
   private isAvaliableBrowser() {
     const currentBrowser = window.navigator.userAgent;
     const disabledBrowsers = ['OPR', 'Firefox'];
-    this.isUnavaliableBrowser = disabledBrowsers.some(b => currentBrowser.includes(b)) || (navigator as any).brave;
-    if (this.isUnavaliableBrowser){
-      this.alertCompatibility();
-    }
+    const avaliable = disabledBrowsers.some(b => currentBrowser.includes(b)) || (navigator as any).brave;
+    this.isUnavaliableBrowser = avaliable;
   }
 
   private initialConfigSpeechRecognition() {
@@ -46,6 +47,7 @@ export class InputComponent implements OnInit {
     this.recognition.onresult = (event) => {
       const result = Array.from(event.results).at(-1);
       if (result) {
+        new Audio(`${this.soundsUrl}/sent.mp3`).play();
         this.chatApiService.sendInput(result[0].transcript);
         this.zone.run(() => this.closeRecording());
       }
@@ -64,7 +66,9 @@ export class InputComponent implements OnInit {
 
   sendTextareaValue(event?: Event) {
     event?.preventDefault();
-    this.chatApiService.sendInput(this.textArea.nativeElement.value);
+    const value = this.textArea.nativeElement.value;
+    if (!value) return;
+    this.chatApiService.sendInput(value);
     this.textArea.nativeElement.value = "";
     this.changeHeightTextarea();
   }
@@ -74,10 +78,14 @@ export class InputComponent implements OnInit {
       this.alertCompatibility();
       return;
     }
-    if (!this.isRecording)
+    if (!this.isRecording) {
+      new Audio(`${this.soundsUrl}/record.mp3`).play();
       this.recognition.start();
-    else
+    }
+    else {
+      new Audio(`${this.soundsUrl}/aborted.mp3`).play();
       this.recognition.stop();
+    }
     this.isRecording = !this.isRecording;
   }
 

@@ -1,8 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+// @import './assets/styles/_variables.scss';
+@use './assets/styles/_variables.scss' as *;
 
 body {
     margin: 0px;
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: rgb(48, 48, 48);
+    background-color: $background_gray;
+    scroll-behavior: smooth;
+}
+
+/* ===== Scrollbar CSS ===== */
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: $background_gray $light_gray;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: $background_gray;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: $soft_gray;
+    border-radius: 10px;
+    border: none;
 }
