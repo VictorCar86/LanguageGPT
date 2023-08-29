@@ -1,0 +1,23 @@
+.navbar-component {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0px;
+
+    &__title {
+        margin: 0px;
+        font-size: 40px;
+    }
+
+    &__btn {
+        display: grid;
+        padding: 4px;
+        border: 0px;
+        border-radius: 9999px;
+        cursor: pointer;
+
+        &__icon {
+            font-size: 30px;
+        }
+    }
+}
