@@ -1,0 +1,12 @@
+<app-dialog title="Settings" (onCloseModal)="onCloseModal.emit($event)">
+    <button class="settings-modal__show-voices-btn generic-btn" type="button" (click)="showVoiceOptions()">
+        🌎 Change Voice Language
+    </button>
+    <ul class="settings-modal__voices-list" *ngIf="showOptions">
+        <li class="settings-modal__voices-list__item" *ngFor="let voice of voiceOptions">
+            <button class="settings-modal__voices-list__item__use-voice-btn generic-btn" type="button" (click)="changeLanguage(voice)">
+                {{voice.lang}} - {{voice.name}}
+            </button>
+        </li>
+    </ul>
+</app-dialog>

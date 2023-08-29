@@ -1,12 +1,6 @@
 <header>
-    <app-navbar (onShowModal)="configModal = $event"></app-navbar>
-    <app-dialog *ngIf="configModal" (onCloseModal)="configModal = $event">
-        <ul>
-            <li *ngFor="let language of languageOptions">
-                {{language.name}}
-            </li>
-        </ul>
-    </app-dialog>
+    <app-navbar (onShowModal)="showConfigModal = $event"></app-navbar>
+    <app-settings-modal *ngIf="showConfigModal" (onCloseModal)="showConfigModal = $event"></app-settings-modal>
 </header>
 <main>
     <app-conversation></app-conversation>

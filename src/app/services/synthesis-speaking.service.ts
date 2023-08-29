@@ -5,71 +5,30 @@ import { Injectable } from '@angular/core';
 })
 export class SynthesisSpeakingService {
 
-  private utteranceConfig: UtteranceConfig = {
-    voice: speechSynthesis.getVoices()[0],
-    text: '',
-    rate: 1,
-    pitch: 1,
-    volume: 1,
-  };
+  text = '';
+  rate = 1;
+  pitch = 1;
+  volume = 1;
+  voice = speechSynthesis.getVoices()[0];
+  voicesAvaliable!: SpeechSynthesisVoice[];
+
+  constructor(){
+    speechSynthesis.onvoiceschanged = () => {
+      this.voicesAvaliable = speechSynthesis.getVoices();
+      console.log(this.voicesAvaliable);
+    };
+  }
 
   speak(inputText?: string) {
     const utterance = new SpeechSynthesisUtterance();
-    utterance.text = inputText ?? this.utteranceConfig.text;
-    utterance.voice = this.utteranceConfig.voice;
-    utterance.rate = this.utteranceConfig.rate;
-    utterance.pitch = this.utteranceConfig.pitch;
-    utterance.volume = this.utteranceConfig.volume;
+    utterance.text = inputText ?? this.text;
+    utterance.voice = this.voice;
+    utterance.rate = this.rate;
+    utterance.pitch = this.pitch;
+    utterance.volume = this.volume;
 
     speechSynthesis.speak(utterance);
+    speechSynthesis.onvoiceschanged
   }
 
-  voicesAvaliable() {
-    return speechSynthesis.getVoices();
-  }
-
-  /* CONFIG */
-  get config() {
-    return this.utteranceConfig;
-  }
-  set config(settings) {
-    this.utteranceConfig = settings;
-  }
-
-  /* VOICE */
-  get voice() {
-    return this.utteranceConfig.voice;
-  }
-  set voice(newVoice) {
-    this.utteranceConfig.voice = newVoice;
-  }
-
-  /* TEXT */
-  set text(newText: string) {
-    this.utteranceConfig.text = newText;
-  }
-
-  /* RATE */
-  get rate() {
-    return this.utteranceConfig.rate;
-  }
-  set rate(newRate) {
-    this.utteranceConfig.rate = newRate;
-  }
-
-  /* PITCH */
-  get pitch() {
-    return this.utteranceConfig.pitch;
-  }
-  set pitch(newPitch) {
-    this.utteranceConfig.pitch = newPitch;
-  }
-
-  /* PITCH */
-  get volume() {
-    return this.utteranceConfig.pitch;
-  }
-  set volume(newVolume) {
-    this.utteranceConfig.pitch = newVolume;
-  }
 }

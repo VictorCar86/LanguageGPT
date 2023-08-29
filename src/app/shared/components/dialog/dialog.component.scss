@@ -1,0 +1,41 @@
+@use '../../../../assets/styles/variables' as *;
+
+.dialog-component {
+    width: 75%;
+    max-width: 640px;
+    padding: 16px;
+    border: 2px solid $light_gray;
+    border-radius: 24px;
+    color: white;
+    background-color: $dark_gray;
+
+    &__header {
+        position: relative;
+        padding: 2px;
+        margin-bottom: 16px;
+        text-align: center;
+        @media (max-width: 640px) { text-align: left }
+
+        &__title {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        &__close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: grid;
+            padding: 2px;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+
+            &__icon {
+                font-size: 28px;
+                font-weight: 700;
+                color: $heavy_red;
+            }
+        }
+    }
+}

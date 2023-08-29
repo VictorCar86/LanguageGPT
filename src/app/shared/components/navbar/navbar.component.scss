@@ -6,7 +6,10 @@
 
     &__title {
         margin: 0px;
-        font-size: 40px;
+        font-size: 28px;
+        @media (min-width: 640px) {
+            font-size: 40px;
+        }
     }
 
     &__btn {

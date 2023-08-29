@@ -1,0 +1,17 @@
+.settings-modal__voices-list {
+    display: grid;
+    gap: 12px;
+    height: 250px;
+    padding-left: 26px;
+    list-style: circle;
+    overflow: auto;
+}
+
+.generic-btn {
+    padding: 8px;
+    border: 0px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+}

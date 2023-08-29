@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterContentChecked, Output, EventEmitter, NgZone, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterContentChecked, Output, EventEmitter, NgZone, AfterViewChecked, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dialog',
@@ -7,6 +7,7 @@ import { Component, ElementRef, ViewChild, AfterContentChecked, Output, EventEmi
 })
 export class DialogComponent implements AfterViewChecked {
 
+  @Input() title = 'lorem ipsum';
   @Output() onCloseModal = new EventEmitter<boolean>();
   @ViewChild('dialog') dialogElem!: ElementRef<HTMLDialogElement>;
 

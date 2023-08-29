@@ -1,6 +1,13 @@
-<dialog ngModel #dialog>
+<dialog class="dialog-component" ngModel #dialog>
+  <header class="dialog-component__header">
+    <span class="dialog-component__header__title">
+      {{title}}
+    </span>
+    <button class="dialog-component__header__close-btn" type="button" (click)="closeModal()">
+      <i class="material-symbols-outlined dialog-component__header__close-btn__icon">
+        close
+      </i>
+    </button>
+  </header>
   <ng-content></ng-content>
-  <button type="button" (click)="closeModal()">
-    Close
-  </button>
 </dialog>
